@@ -15,14 +15,6 @@
     </url>
 
     <url>
-        <loc>https://www.wwwdotcomslash.com/posts/Securing-Connections-to-a-Feathers-Service/</loc>
-        <lastmod>2017-04-03T13:04:04.562Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://www.wwwdotcomslash.com/posts/feathers-services-with-leveldb-backends/</loc>
         <lastmod>2017-04-03T11:34:37.858Z</lastmod>
         <changefreq>weekly</changefreq>
