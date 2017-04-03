@@ -23,57 +23,57 @@
     </url>
 
     <url>
-        <loc>https://www.wwwdotcomslash.com/tags/dynamodb/</loc>
-        <lastmod>2017-04-03T09:34:52.568Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wwwdotcomslash.com/tags/nodejs/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wwwdotcomslash.com/tags/node/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wwwdotcomslash.com/tags/feathers/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wwwdotcomslash.com/tags/leveldb/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://www.wwwdotcomslash.com/tags/real-time/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
+        <lastmod>2017-04-03T09:50:33.440Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://www.wwwdotcomslash.com/tags/async/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
+        <lastmod>2017-04-03T09:50:33.440Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://www.wwwdotcomslash.com/tags/vue2/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
+        <lastmod>2017-04-03T09:50:33.440Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/dynamodb/</loc>
+        <lastmod>2017-04-03T11:34:03.721Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/nodejs/</loc>
+        <lastmod>2017-04-03T11:34:37.858Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/node/</loc>
+        <lastmod>2017-04-03T11:34:37.858Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/feathers/</loc>
+        <lastmod>2017-04-03T11:34:37.858Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/leveldb/</loc>
+        <lastmod>2017-04-03T11:34:37.858Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

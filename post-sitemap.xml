@@ -7,16 +7,8 @@
     </url>
 
     <url>
-        <loc>https://www.wwwdotcomslash.com/posts/A-Simple-Feathers-Real-Time-Example/</loc>
-        <lastmod>2017-04-03T09:36:01.506Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://www.wwwdotcomslash.com/posts/feathers-services-with-leveldb-backends/</loc>
-        <lastmod>2017-04-03T09:34:59.917Z</lastmod>
+        <lastmod>2017-04-03T11:34:37.858Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -24,7 +16,15 @@
 
     <url>
         <loc>https://www.wwwdotcomslash.com/posts/feathers-services-with-leveldb-backends-pt2/</loc>
-        <lastmod>2017-04-03T09:34:52.568Z</lastmod>
+        <lastmod>2017-04-03T11:34:03.721Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/posts/A-Simple-Feathers-Real-Time-Example/</loc>
+        <lastmod>2017-04-03T09:50:33.440Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
