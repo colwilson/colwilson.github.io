@@ -9,34 +9,6 @@
     </url>
 
     <url>
-        <loc>https://www.wwwdotcomslash.com/tags/feathers/</loc>
-        <lastmod>2017-04-02T08:38:26.796Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wwwdotcomslash.com/tags/leveldb/</loc>
-        <lastmod>2017-04-02T08:38:26.796Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wwwdotcomslash.com/tags/node/</loc>
-        <lastmod>2017-04-02T09:00:28.252Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.wwwdotcomslash.com/tags/nodejs/</loc>
-        <lastmod>2017-04-02T09:00:28.252Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://www.wwwdotcomslash.com/tags/http-post/</loc>
         <lastmod>2017-04-02T09:00:28.252Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -53,6 +25,55 @@
     <url>
         <loc>https://www.wwwdotcomslash.com/tags/tools/</loc>
         <lastmod>2017-04-02T09:00:28.252Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/nodejs/</loc>
+        <lastmod>2017-04-03T07:02:14.347Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/node/</loc>
+        <lastmod>2017-04-03T07:02:14.347Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/feathers/</loc>
+        <lastmod>2017-04-03T07:02:14.347Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/leveldb/</loc>
+        <lastmod>2017-04-03T07:02:14.347Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/real-time/</loc>
+        <lastmod>2017-04-03T07:02:14.347Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/async/</loc>
+        <lastmod>2017-04-03T07:02:14.347Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.wwwdotcomslash.com/tags/vue2/</loc>
+        <lastmod>2017-04-03T07:02:14.347Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
