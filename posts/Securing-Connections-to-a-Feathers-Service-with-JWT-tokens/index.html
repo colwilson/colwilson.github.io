@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Notes on my coding adventures"><meta name="keywords" content="node, nodejs, python, vue2"><title>Securing Connections to a Feathers Service using JWT Tokens - Profound</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"><!-- Google Tag Manager--><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-57W46GL');</script><!-- End Google Tag Manager--><meta name="google-site-verification" content="v1EWNN8vHNv61dO6FeITdiiC6UxgKHE5jP5n2Gn9_cU"></head><body><!-- Google Tag Manager (noscript)--><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57W46GL" height="0" width="0" style="display:none;visibility:hidden;"></iframe></noscript><!-- End Google Tag Manager (noscript)--><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li></ul><div class="wrapper" id="wrap"><script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- Profound Main--><ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-8143086736444913" data-ad-slot="6156751424" data-ad-format="auto"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="/cow-w.jpg"><div class="post-title"><h1 class="title">Securing Connections to a Feathers Service using JWT Tokens</h1><ul class="meta"><li><i class="icon icon-author"></i>Col Wilson</li><li><i class="icon icon-clock"></i>13 Minutes</li><li><i class="icon icon-calendar"></i>April 3, 2017</li></ul></div></div><div class="article-content" style="max-width:800px"><p>In <a href="../feathers-services-with-leveldb-backends">previous posts</a>, I’ve looked at how to set up <a href="http://feathersjs.com/" target="_blank" rel="external">Feathers</a> REST APIs and how to access the data. In this post, I want to show you the fundamentals of how you can protect that data by using tokens.</p>
+<p>##Why protect your APIs?<br>Sometimes you may not want to make your REST APIs available to everyone, perhaps the information is sensitive or perhaps you just want users to register for the service so that you can understand who’s using what.</p>
+<p>Feathers provides both <a href="https://docs.feathersjs.com/authentication/readme.html" target="_blank" rel="external">password and token authentication</a> at the moment and work is underway to support OAuth and Two Factor authentication in the future. Feathers also provides a handy client authentication module which I’ll look at in a future post. However, this post tries to explain how you can get token authentication working from the basics - using just curl - so that see what goes on under the covers.</p>
+<p>##Creating the API</p>
+<p>Assuming you’ve <a href="../feathers-services-with-leveldb-backends">installed the Feathers CLI</a>,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">feathers</div><div class="line"></div><div class="line">generate app</div></pre></td></tr></table></figure>
+<p>Answer the standard questions</p>
+<pre><code>? Project name secured_demo
+? Description
+? What type of API are you making? (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to inverse selection)REST, Realtime via Socket.io
+? CORS configuration Enabled for all domains
+? What database do you primarily want to use? Memory
+? What authentication providers would you like to support? (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to inverse selection)local
+...
+</code></pre><p>then<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">generate service</div></pre></td></tr></table></figure></p>
+<p>again answer the standard questions paying particular attention to the question “Does your service require users to be authenticated?” <em>“yes”</em></p>
+<pre><code>? What do you want to call your service? secrets
+? What type of service do you need? database
+? For which database? Memory
+? Does your service require users to be authenticated? Yes
+   create src/services/secrets/index.js
+   create src/services/secrets/hooks/index.js
+   create test/services/secrets/index.test.js
+secured_demo@0.0.0 /home/col/dev/tutorials/feathers_secured_2
+└── feathers-memory@0.6.3
+</code></pre><p>Now let’s edit the <em>secrets</em> service to add some dummy secrets data</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">atom src/services/secrets/index.js</div></pre></td></tr></table></figure>
+<p>and add these lines just below the end of the exported function:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">secretsService.create(&#123;<span class="attr">secret</span>: <span class="string">'AAAA'</span>&#125;)</div><div class="line">secretsService.create(&#123;<span class="attr">secret</span>: <span class="string">'BBBB'</span>&#125;)</div><div class="line">secretsService.create(&#123;<span class="attr">secret</span>: <span class="string">'CCCC'</span>&#125;)</div></pre></td></tr></table></figure>
+<p>Now, remember you stipulated that the service required authentication. This can be seen to have be enforced if you run this bash command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl <span class="_">-s</span> http://localhost:3030/secrets | python -m json.tool</div></pre></td></tr></table></figure>
+<p>You get a 401 response with:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"className"</span>: <span class="string">"not-authenticated"</span>,</div><div class="line">    <span class="attr">"code"</span>: <span class="number">401</span>,</div><div class="line">    <span class="attr">"errors"</span>: &#123;&#125;,</div><div class="line">    <span class="attr">"message"</span>: <span class="string">"Authentication token missing."</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"NotAuthenticated"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Turn-Authentication-Off-Temporarily"><a href="#Turn-Authentication-Off-Temporarily" class="headerlink" title="Turn Authentication Off Temporarily"></a>Turn Authentication Off Temporarily</h2><p>To prove that we have some data, let’s turn the authentication off for a moment by editing the hook:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">atom src/services/secrets/hooks/index.js</div></pre></td></tr></table></figure>
+<p>and comment out the <em>auth</em> lines in the <em>all</em> entry:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">all: [</div><div class="line">  <span class="comment">// auth.verifyToken(),</span></div><div class="line">  <span class="comment">// auth.populateUser(),</span></div><div class="line">  <span class="comment">// auth.restrictToAuthenticated()</span></div><div class="line">],</div></pre></td></tr></table></figure>
+<p>Restart the Feathers application. Now, running the same curl command, we can see the dummy data we entered:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">curl <span class="_">-s</span> http://localhost:3030/secrets | python -m json.tool</div><div class="line">&#123;</div><div class="line">    <span class="string">"data"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"id"</span>: 0,</div><div class="line">            <span class="string">"secret"</span>: <span class="string">"AAAA"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"id"</span>: 1,</div><div class="line">            <span class="string">"secret"</span>: <span class="string">"BBBB"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"id"</span>: 2,</div><div class="line">            <span class="string">"secret"</span>: <span class="string">"CCCC"</span></div><div class="line">        &#125;</div><div class="line">    ],</div><div class="line">    <span class="string">"limit"</span>: 5,</div><div class="line">    <span class="string">"skip"</span>: 0,</div><div class="line">    <span class="string">"total"</span>: 3</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Turn-Authentication-On-Again"><a href="#Turn-Authentication-On-Again" class="headerlink" title="Turn Authentication On Again"></a>Turn Authentication On Again</h2><p>Okay, back to work. Go back and uncomment the <em>auth</em> entries in the hook:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">atom src/services/secrets/hooks/index.js</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">all: [</div><div class="line">  auth.verifyToken(),</div><div class="line">  auth.populateUser(),</div><div class="line">  auth.restrictToAuthenticated()</div><div class="line">],</div></pre></td></tr></table></figure>
+<p>Restart the Feathers app.</p>
+<p>##How do I get a token then?</p>
+<p>Well, first of all, you need to authenticate a user. That would normally require a user database and all sorts of user management infrastructure which is not what I wanted to illustrate in this post, so we are going to add a fake user in the same way as we added the fake data above.</p>
+<p>Edit the <em>user</em> service:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">atom src/services/user/index.js</div></pre></td></tr></table></figure>
+<p>and add this line just before the end of the exported function:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">userService.create(&#123;<span class="attr">email</span>: <span class="string">'a@b.com'</span>, <span class="attr">password</span>: <span class="string">'1234'</span>&#125;)</div></pre></td></tr></table></figure>
+<p>Restart the Feathers app.</p>
+<p>###Get the token</p>
+<p>Now you need to POST the credentials to the auth/local endpoint like so:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">URL=<span class="string">"http://localhost:3030/auth/local"</span></div><div class="line"></div><div class="line">curl <span class="_">-s</span> -X POST -H <span class="string">"Content-type: application/json"</span> <span class="variable">$URL</span> --data-binary <span class="string">'&#123;"email": "a@b.com", "password": "1234"&#125;'</span> | python -m json.tool</div></pre></td></tr></table></figure>
+<p>Which will return something like this:</p>
+<pre><code>{
+    &quot;data&quot;: {
+        &quot;email&quot;: &quot;a@b.com&quot;,
+        &quot;id&quot;: 0
+    },
+    &quot;token&quot;: &quot;longJWTtoken&quot;
+}
+</code></pre><p>Then if you capture that token it can be used in future requests like this:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">URL=<span class="string">"http://localhost:3030/secrets"</span></div><div class="line">TOKEN=<span class="string">"longJWTtoken"</span></div><div class="line"></div><div class="line">curl <span class="variable">$URL</span>?token=<span class="variable">$TOKEN</span> | python -m json.tool</div></pre></td></tr></table></figure>
+<p>And you should see the data again:</p>
+<pre><code>{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 0,
+            &quot;secret&quot;: &quot;AAAA&quot;
+        },
+        {
+            &quot;id&quot;: 1,
+            &quot;secret&quot;: &quot;BBBB&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;secret&quot;: &quot;CCCC&quot;
+        }
+    ],
+    &quot;limit&quot;: 5,
+    &quot;skip&quot;: 0,
+    &quot;total&quot;: 3
+}
+</code></pre><p>Thanks for reading, I hope it was of some use.</p>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/feathers/">feathers</a><span class="tag-list-count">4</span></li></ul></div></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/posts/A-Simple-Feathers-Real-Time-Example/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://www.linkedin.com/in/col-wilson-bb49249/" title="linkedin" target="_blank"><i class="icon icon-linkin"></i></a></li><li><a href="mailto:tersecol+wwwdotcomslash@gmail.com" title="email" target="_blank"><i class="icon icon-email"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2017 Profound<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
