@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Notes on my coding adventures"><meta name="keywords" content="node, nodejs, python, vue2"><title>Horizon Charts in Vue2 - Profound</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"><!-- Google Tag Manager--><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-57W46GL');</script><!-- End Google Tag Manager--><meta name="google-site-verification" content="v1EWNN8vHNv61dO6FeITdiiC6UxgKHE5jP5n2Gn9_cU"></head><body><!-- Google Tag Manager (noscript)--><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57W46GL" height="0" width="0" style="display:none;visibility:hidden;"></iframe></noscript><!-- End Google Tag Manager (noscript)--><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li></ul><div class="wrapper" id="wrap"><script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- Profound Main--><ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-8143086736444913" data-ad-slot="6156751424" data-ad-format="auto"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="/cow-w.jpg"><div class="post-title"><h1 class="title">Horizon Charts in Vue2</h1><ul class="meta"><li><i class="icon icon-author"></i>Col Wilson</li><li><i class="icon icon-clock"></i>1 Minutes</li><li><i class="icon icon-calendar"></i>May 6, 2017</li></ul></div></div><div class="article-content" style="max-width:800px"><p>I was looking for a horizon chart component for Vue2, but couldn’t find one, so <a href="https://www.npmjs.com/package/vue2-d3-horizon-chart" target="_blank" rel="external">I wrote my own</a>.</p>
+<p><img src="/horizon-chart.png" alt="Image of Horizon Chart"></p>
+<p>Of course the point of a Horizon Chart is that it identifies change and they’re great for helping you to identify changes in metrics, for example cpu usage, <a href="http://www.weatherquestions.com/What_is_dewpoint_temperature.htm" target="_blank" rel="external">dewpoint temperature</a>, spot values etc.</p>
+<p>So if you feed this chart live data, for example via socket-io, you’ll get nice dancing charts whizzing across the screen.</p>
+<p>To that end I’ve created a dummy data generator and the simplest of vue2 apps to illustrate.</p>
+<p>You can find it <a href="https://github.com/colwilson/vue2-d3-horizon-chart-demo" target="_blank" rel="external">here</a>.</p>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue2-nodejs-node-d3-horizon-chart/">vue2, nodejs, node, d3, horizon-chart</a><span class="tag-list-count">1</span></li></ul></div><div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://profound-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                
+</div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/posts/A-Very-Simple-REST-Client-for-Feathers/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://www.linkedin.com/in/col-wilson-bb49249/" title="linkedin" target="_blank"><i class="icon icon-linkin"></i></a></li><li><a href="mailto:tersecol+wwwdotcomslash@gmail.com" title="email" target="_blank"><i class="icon icon-email"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2017 Profound<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>

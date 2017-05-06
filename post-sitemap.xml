@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://www.wwwdotcomslash.com/posts/Horizon-Charts-in-Vue2/</loc>
+        <lastmod>2017-05-06T08:18:03.885Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://www.wwwdotcomslash.com/posts/a-very-simple-http-post-tool/</loc>
         <lastmod>2017-04-08T08:52:28.711Z</lastmod>
         <changefreq>weekly</changefreq>
